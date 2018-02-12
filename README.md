@@ -52,3 +52,16 @@ if ( $this->options['forcerewritetitle'] === true && ! current_theme_supports( '
 	add_action( 'wp_footer', array( $this, 'flush_cache' ), - 1 );
 }
 ```
+
+### W3 Total Cache https://wordpress.org/plugins/w3-total-cache/
+
+It starts output buffering in the plugin's main thread with callaback.
+
+```php
+if ( $this->can_ob() ) {
+	ob_start( array(
+			$this,
+			'ob_callback'
+		) );
+}
+```
