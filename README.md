@@ -65,3 +65,19 @@ if ( $this->can_ob() ) {
 		) );
 }
 ```
+
+## Themes
+
+### ProPhoto 6 https://www.prophoto.com/
+
+It starts output buffering in the themes's functions.php thread with callaback.
+
+Closes the output buffer on the ```pp_end_html``` action
+
+```PHP
+protected function capture($key)
+{
+ob_start();
+$this->on('pp_end_html', array($this, 'endCapture'));
+}
+```
