@@ -42,3 +42,13 @@ function jch_buffer_end()
         }
 }
 ```
+
+### Yoast SEO https://wordpress.org/plugins/wordpress-seo/
+
+```php
+// For WordPress functions below 4.4.
+if ( $this->options['forcerewritetitle'] === true && ! current_theme_supports( 'title-tag' ) ) {
+	add_action( 'template_redirect', array( $this, 'force_rewrite_output_buffer' ), 99999 );
+	add_action( 'wp_footer', array( $this, 'flush_cache' ), - 1 );
+}
+```
