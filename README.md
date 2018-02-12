@@ -81,3 +81,24 @@ ob_start();
 $this->on('pp_end_html', array($this, 'endCapture'));
 }
 ```
+
+### YooTheme Warp 7 https://yootheme.com/themes/warp-framework
+
+Opens 2 output budder in the header.php and closes both in footer.php
+
+```PHP
+// start output buffer to capture wp_head
+ob_start();
+
+wp_enqueue_script('jquery');
+wp_head();
+
+// start output buffer to capture content for use in footer.php
+ob_start();
+```
+
+```PHP
+// get content from output buffer and set a slot for the template renderer
+$warp['template']->set('content', ob_get_clean());
+$warp['template']->set('wp_head', ob_get_clean());
+```
