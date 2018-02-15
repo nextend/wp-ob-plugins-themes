@@ -102,6 +102,29 @@ if ( $this->can_ob() ) {
 }
 ```
 
+### Speed Contact Bar https://wordpress.org/plugins/speed-contact-bar/
+Note: I have contacted with the developer to change the template_include filter to template_redirect action: https://wordpress.org/support/topic/smart-slider-3-conflict-and-code-improvement-suggestion/
+
+```php
+add_filter( 'template_include', array( $this, 'activate_buffer' ), 1 );
+add_filter( 'shutdown', array( $this, 'include_contact_bar' ), 0 );
+```
+
+```php
+public function activate_buffer( $template ) {
+	// activate output buffer
+	ob_start();
+	// return html without changes
+	return $template;
+}
+
+public function include_contact_bar() {
+...
+	// get current buffer content and clean buffer
+	$content = ob_get_clean(); 
+			
+```
+
 ## Themes
 
 ### ProPhoto 6 https://www.prophoto.com/
