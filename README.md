@@ -3,6 +3,42 @@
 
 ## Plugins
 
+### Smart Slider 3 https://wordpress.org/plugins/smart-slider-3/
+
+```php
+add_action('template_redirect', 'N2Wordpress::outputStart', 10000);
+
+add_action('shutdown', 'N2Wordpress::closeOutputBuffers', -10000);
+add_action('pp_end_html', 'N2Wordpress::closeOutputBuffers', -10000); // ProPhoto 6 theme
+add_action('headway_html_close', 'N2Wordpress::closeOutputBuffers', -10000);
+```
+
+```php
+public static function outputStart() {
+    static $started = false;
+    if(!$started) {
+	    $started = true;
+
+	    ob_start( "N2Wordpress::platformRenderEnd" );
+    }
+}
+
+public static function closeOutputBuffers(){
+    $handlers = ob_list_handlers();
+    if(in_array('N2Wordpress::platformRenderEnd', $handlers)){
+	    for($i = count($handlers)-1; $i >= 0; $i--){
+		    if($handlers[$i] === 'N2Wordpress::platformRenderEnd'){
+			self::finalizeCssJs();
+		    }
+		    ob_end_flush();
+		    if($handlers[$i] === 'N2Wordpress::platformRenderEnd'){
+			    break;
+		    }
+	    }
+    }
+}
+```
+
 ### JCH Optimize https://wordpress.org/plugins/jch-optimize/
 
 Note: On shutdown action, JCH optimize closes all ouput buffer.
