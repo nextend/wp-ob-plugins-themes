@@ -129,7 +129,7 @@ public function include_contact_bar() {
 
 ### ProPhoto 6 https://www.prophoto.com/
 
-It starts output buffering in the themes's functions.php thread with callaback.
+It starts output buffering in the themes's functions.php thread with callback.
 
 Closes the output buffer on the ```pp_end_html``` action
 
