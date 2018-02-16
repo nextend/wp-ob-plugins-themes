@@ -79,6 +79,19 @@ function jch_buffer_end()
 }
 ```
 
+### Autoptimize https://wordpress.org/plugins/autoptimize/
+Autoptimize hooks into template_redirect by default, but you can change that with constants.
+
+```php
+// Hook to wordpress
+if (defined('AUTOPTIMIZE_INIT_EARLIER')) {
+    add_action('init','autoptimize_start_buffering',-1);
+} else {
+    if (!defined('AUTOPTIMIZE_HOOK_INTO')) { define('AUTOPTIMIZE_HOOK_INTO', 'template_redirect'); }
+    add_action(constant("AUTOPTIMIZE_HOOK_INTO"),'autoptimize_start_buffering',2);
+}
+```
+
 ### Yoast SEO https://wordpress.org/plugins/wordpress-seo/
 
 ```php
