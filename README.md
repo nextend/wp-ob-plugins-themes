@@ -20,10 +20,10 @@ function callback_function($content_of_the_buffer){
 }
 ```
 Example priorities to maintain the right ouput buffer order:
-$priority = -100; // Full page cache plugin
-$priority = -50; // JS minifier plugin
-$priority = -50; // CSS minifier plugin
-$priority = 100; // Contact form embedder plugin
+- $priority = -100; // Full page cache plugin
+- $priority = -50; // JS minifier plugin
+- $priority = -50; // CSS minifier plugin
+- $priority = 100; // Contact form embedder plugin
 
 
 ## Plugins
