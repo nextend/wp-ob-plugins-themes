@@ -92,6 +92,12 @@ if (defined('AUTOPTIMIZE_INIT_EARLIER')) {
 }
 ```
 
+### WP Rocket https://wp-rocket.me
+Starts the output buffer in advanced-cache.php
+```php
+ob_start( 'do_rocket_callback' );
+```
+
 ### Yoast SEO https://wordpress.org/plugins/wordpress-seo/
 
 ```php
