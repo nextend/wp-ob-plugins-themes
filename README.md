@@ -1,5 +1,7 @@
 # WordPress Ouput Buffering in Plugins and Themes
 
+https://core.trac.wordpress.org/ticket/43258
+
 ## Probably the best way to use full page output buffering in WordPress plugins and themes
 $priority: Lower numbers correspond with earlier execution, so your output buffer will contain the content of higher value buffers. 
 
