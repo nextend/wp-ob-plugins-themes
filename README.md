@@ -1,9 +1,34 @@
 # WordPress Ouput Buffering in Plugins and Themes
 
+## Probably the best way to use full page output buffering in WordPress plugins and themes
+$priority: Lower numbers correspond with earlier execution, so your output buffer will contain the content of higher value buffers. 
+
+```php
+$priority = 10;
+add_action('template_redirect', function(){
+	ob_start('callback_function')
+}, $priority);
+
+add_action('shutdown', function(){
+	ob_end_flush();
+}, -1 * $priority);
+
+function callback_function($content_of_the_buffer){
+	//Do whatever you need to do with the content of the buffer
+	
+	return $content_of_the_buffer;
+}
+```
+Example priorities to maintain the right ouput buffer order:
+$priority = -100; // Full page cache plugin
+$priority = -50; // JS minifier plugin
+$priority = -50; // CSS minifier plugin
+$priority = 100; // Contact form embedder plugin
+
 
 ## Plugins
 
-### Smart Slider 3 https://wordpress.org/plugins/smart-slider-3/
+#### Smart Slider 3 https://wordpress.org/plugins/smart-slider-3/
 
 ```php
 add_action('template_redirect', 'N2Wordpress::outputStart', 10000);
@@ -39,7 +64,7 @@ public static function closeOutputBuffers(){
 }
 ```
 
-### JCH Optimize https://wordpress.org/plugins/jch-optimize/
+#### JCH Optimize https://wordpress.org/plugins/jch-optimize/
 
 Note: On shutdown action, JCH optimize closes all ouput buffer.
 
@@ -79,7 +104,7 @@ function jch_buffer_end()
 }
 ```
 
-### Autoptimize https://wordpress.org/plugins/autoptimize/
+#### Autoptimize https://wordpress.org/plugins/autoptimize/
 Autoptimize hooks into template_redirect by default, but you can change that with constants.
 
 ```php
@@ -92,13 +117,13 @@ if (defined('AUTOPTIMIZE_INIT_EARLIER')) {
 }
 ```
 
-### WP Rocket https://wp-rocket.me
+#### WP Rocket https://wp-rocket.me
 Starts the output buffer in advanced-cache.php
 ```php
 ob_start( 'do_rocket_callback' );
 ```
 
-### Yoast SEO https://wordpress.org/plugins/wordpress-seo/
+#### Yoast SEO https://wordpress.org/plugins/wordpress-seo/
 
 ```php
 // For WordPress functions below 4.4.
@@ -108,7 +133,7 @@ if ( $this->options['forcerewritetitle'] === true && ! current_theme_supports( '
 }
 ```
 
-### W3 Total Cache https://wordpress.org/plugins/w3-total-cache/
+#### W3 Total Cache https://wordpress.org/plugins/w3-total-cache/
 
 It starts output buffering in the plugin's main thread with callaback.
 
@@ -121,7 +146,7 @@ if ( $this->can_ob() ) {
 }
 ```
 
-### Speed Contact Bar https://wordpress.org/plugins/speed-contact-bar/
+#### Speed Contact Bar https://wordpress.org/plugins/speed-contact-bar/
 Note: I have contacted with the developer to change the template_include filter to template_redirect action: https://wordpress.org/support/topic/smart-slider-3-conflict-and-code-improvement-suggestion/
 
 ```php
@@ -146,7 +171,7 @@ public function include_contact_bar() {
 
 ## Themes
 
-### ProPhoto 6 https://www.prophoto.com/
+#### ProPhoto 6 https://www.prophoto.com/
 
 It starts output buffering in the themes's functions.php thread with callback.
 
@@ -160,7 +185,7 @@ $this->on('pp_end_html', array($this, 'endCapture'));
 }
 ```
 
-### YooTheme Warp 7 https://yootheme.com/themes/warp-framework
+#### YooTheme Warp 7 https://yootheme.com/themes/warp-framework
 
 Opens 2 output budder in the header.php and closes both in footer.php
 
