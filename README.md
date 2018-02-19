@@ -27,6 +27,12 @@ Example priorities to maintain the right ouput buffer order:
 - $priority = -50; // CSS minifier plugin
 - $priority = 100; // Contact form embedder plugin
 
+## Output Buffer Tester - WordPress Plugin
+
+This plugin helps you to find the place where your output buffer was closed by other plugin or theme.
+
+https://wordpress.org/plugins/output-buffer-tester/
+
 
 ## Plugins
 
