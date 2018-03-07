@@ -1,4 +1,4 @@
-# WordPress Ouput Buffering in Plugins and Themes
+# WordPress Output Buffering in Plugins and Themes
 
 https://core.trac.wordpress.org/ticket/43258
 
