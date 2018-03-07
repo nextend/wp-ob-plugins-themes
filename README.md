@@ -8,7 +8,7 @@ $priority: Lower numbers correspond with earlier execution, so your output buffe
 ```php
 $priority = 10;
 add_action('template_redirect', function(){
-	ob_start('callback_function')
+	ob_start('callback_function');
 }, $priority);
 
 add_action('shutdown', function(){
@@ -175,6 +175,21 @@ public function include_contact_bar() {
 	// get current buffer content and clean buffer
 	$content = ob_get_clean(); 
 			
+```
+
+#### Ultimate Reviews https://wordpress.org/plugins/ultimate-reviews/
+Improper usage of output buffer as it conflicts with others. I just the code and this output buffer does nothing. https://wordpress.org/support/topic/improper-usage-of-output-buffers/
+
+```php
+function EWD_URP_add_ob_start() {
+    ob_start();
+}
+add_action('init', 'EWD_URP_add_ob_start');
+
+function EWD_URP_flush_ob_end() {
+    ob_end_flush();
+}
+add_action('wp_footer', 'EWD_URP_flush_ob_end');
 ```
 
 ## Themes
